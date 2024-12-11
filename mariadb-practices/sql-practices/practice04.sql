@@ -8,6 +8,7 @@ select count(*) as employee_count
 from salaries s
 where s.to_date = '9999-01-01'
   and s.salary > (select avg(salary) from salaries where to_date = '9999-01-01');
+  
 
 -- 문제2. 
 -- 현재, 각 부서별로 최고의 급여를 받는 사원의 사번, 이름, 부서 급여을 조회하세요. 단 조회결과는 급여의 내림차순으로 정렬합니다.
@@ -30,6 +31,7 @@ where de.to_date = '9999-01-01'
   )
 order by s.salary desc;
 
+
 -- 문제3.
 -- 현재, 사원 자신들의 부서의 평균급여보다 급여가 많은 사원들의 사번, 이름 그리고 급여를 조회하세요 
 select e.emp_no, e.first_name, e.last_name, s.salary
@@ -46,6 +48,7 @@ where s.to_date = '9999-01-01'
       and s2.to_date = '9999-01-01'
       and de2.to_date = '9999-01-01'
   );
+  
 
 -- 문제4.
 -- 현재, 사원들의 사번, 이름, 그리고 매니저 이름과 부서 이름을 출력해 보세요.
@@ -57,6 +60,7 @@ join employees m on dm.emp_no = m.emp_no
 join departments d on de.dept_no = d.dept_no
 where de.to_date = '9999-01-01'
   and dm.to_date = '9999-01-01';
+  
 
 -- 문제5.
 -- 현재, 평균급여가 가장 높은 부서의 사원들의 사번, 이름, 직책 그리고 급여를 조회하고 급여 순으로 출력하세요.
@@ -80,6 +84,7 @@ where t.to_date = '9999-01-01'
   )
 order by s.salary desc;
 
+
 -- 문제6.
 -- 현재, 평균 급여가 가장 높은 부서의 이름 그리고 평균급여를 출력하세요.
 select d.dept_name, avg(s.salary) as avg_salary
@@ -91,6 +96,7 @@ where de.to_date = '9999-01-01'
 group by d.dept_name
 order by avg_salary desc
 limit 1;
+
 
 -- 문제7.
 -- 현재, 평균 급여가 가장 높은 직책의 타이틀 그리고 평균급여를 출력하세요.
