@@ -1,40 +1,40 @@
 package bookmall.vo;
 
 public class CartVo {
-    private int no;
-    private int userNo;
-    private int bookNo;
+    private long no;
+    private long userNo;
+    private long bookNo;
     private int quantity;
 
     public CartVo() {}
 
-    public CartVo(int userNo, int bookNo, int quantity) {
+    public CartVo(long userNo, long bookNo, int quantity) {
         this.userNo = userNo;
         this.bookNo = bookNo;
         this.quantity = quantity;
     }
 
-    public int getNo() {
+    public long getNo() {
         return no;
     }
 
-    public void setNo(int no) {
+    public void setNo(long no) {
         this.no = no;
     }
 
-    public int getUserNo() {
+    public long getUserNo() {
         return userNo;
     }
 
-    public void setUserNo(int userNo) {
+    public void setUserNo(long userNo) {
         this.userNo = userNo;
     }
 
-    public int getBookNo() {
+    public long getBookNo() {
         return bookNo;
     }
 
-    public void setBookNo(int bookNo) {
+    public void setBookNo(long bookNo) {
         this.bookNo = bookNo;
     }
 

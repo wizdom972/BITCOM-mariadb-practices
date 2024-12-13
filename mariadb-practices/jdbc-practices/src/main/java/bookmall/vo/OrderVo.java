@@ -1,8 +1,8 @@
 package bookmall.vo;
 
 public class OrderVo {
-    private int no;
-    private int userNo;
+    private long no;
+    private long userNo;
     private String number;
     private int payment;
     private String shipping;
@@ -10,7 +10,7 @@ public class OrderVo {
 
     public OrderVo() {}
 
-    public OrderVo(int userNo, String number, int payment, String shipping, String status) {
+    public OrderVo(long userNo, String number, int payment, String shipping, String status) {
         this.userNo = userNo;
         this.number = number;
         this.payment = payment;
@@ -18,19 +18,19 @@ public class OrderVo {
         this.status = status;
     }
 
-    public int getNo() {
+    public long getNo() {
         return no;
     }
 
-    public void setNo(int no) {
+    public void setNo(long no) {
         this.no = no;
     }
 
-    public int getUserNo() {
+    public long getUserNo() {
         return userNo;
     }
 
-    public void setUserNo(int userNo) {
+    public void setUserNo(long userNo) {
         this.userNo = userNo;
     }
 

@@ -1,7 +1,7 @@
 package bookmall.vo;
 
 public class CategoryVo {
-    private int no;
+    private long no;
     private String name;
 
     public CategoryVo() {}
@@ -10,11 +10,11 @@ public class CategoryVo {
         this.name = name;
     }
 
-    public int getNo() {
+    public long getNo() {
         return no;
     }
 
-    public void setNo(int no) {
+    public void setNo(long no) {
         this.no = no;
     }
 
