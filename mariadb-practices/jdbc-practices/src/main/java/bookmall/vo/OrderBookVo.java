@@ -1,42 +1,43 @@
 package bookmall.vo;
 
 public class OrderBookVo {
-    private long no;
-    private long orderNo;
-    private long bookNo;
+    private Long no;
+    private Long orderNo;
+    private Long bookNo;
     private int quantity;
     private int price;
+    private String bookTitle;
 
-    public OrderBookVo() {}
+	public OrderBookVo() {}
 
-    public OrderBookVo(long orderNo, long bookNo, int quantity, int price) {
+    public OrderBookVo(Long orderNo, Long bookNo, int quantity, int price) {
         this.orderNo = orderNo;
         this.bookNo = bookNo;
         this.quantity = quantity;
         this.price = price;
     }
 
-    public long getNo() {
+    public Long getNo() {
         return no;
     }
 
-    public void setNo(long no) {
+    public void setNo(Long no) {
         this.no = no;
     }
 
-    public long getOrderNo() {
+    public Long getOrderNo() {
         return orderNo;
     }
 
-    public void setOrderNo(long orderNo) {
+    public void setOrderNo(Long orderNo) {
         this.orderNo = orderNo;
     }
 
-    public long getBookNo() {
+    public Long getBookNo() {
         return bookNo;
     }
 
-    public void setBookNo(long bookNo) {
+    public void setBookNo(Long bookNo) {
         this.bookNo = bookNo;
     }
 
@@ -55,6 +56,14 @@ public class OrderBookVo {
     public void setPrice(int price) {
         this.price = price;
     }
+    
+    public String getBookTitle() {
+		return bookTitle;
+	}
+
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
+	}
 
     @Override
     public String toString() {

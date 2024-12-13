@@ -1,7 +1,7 @@
 package bookmall.vo;
 
 public class UserVo {
-    private long no;
+    private Long no;
     private String name;
     private String email;
     private String password;
@@ -16,11 +16,11 @@ public class UserVo {
         this.phone = phone;
     }
 
-    public long getNo() {
+    public Long getNo() {
         return no;
     }
 
-    public void setNo(long no) {
+    public void setNo(Long no) {
         this.no = no;
     }
 

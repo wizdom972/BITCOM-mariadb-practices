@@ -1,40 +1,41 @@
 package bookmall.vo;
 
 public class CartVo {
-    private long no;
-    private long userNo;
-    private long bookNo;
+    private Long no;
+    private Long userNo;
+    private Long bookNo;
     private int quantity;
+    private String bookTitle;
 
     public CartVo() {}
 
-    public CartVo(long userNo, long bookNo, int quantity) {
+    public CartVo(Long userNo, Long bookNo, int quantity) {
         this.userNo = userNo;
         this.bookNo = bookNo;
         this.quantity = quantity;
     }
 
-    public long getNo() {
+    public Long getNo() {
         return no;
     }
 
-    public void setNo(long no) {
+    public void setNo(Long no) {
         this.no = no;
     }
 
-    public long getUserNo() {
+    public Long getUserNo() {
         return userNo;
     }
 
-    public void setUserNo(long userNo) {
+    public void setUserNo(Long userNo) {
         this.userNo = userNo;
     }
 
-    public long getBookNo() {
+    public Long getBookNo() {
         return bookNo;
     }
 
-    public void setBookNo(long bookNo) {
+    public void setBookNo(Long bookNo) {
         this.bookNo = bookNo;
     }
 
@@ -46,7 +47,15 @@ public class CartVo {
         this.quantity = quantity;
     }
 
-    @Override
+    public String getBookTitle() {
+		return bookTitle;
+	}
+
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
+	}
+
+	@Override
     public String toString() {
         return "CartVo [no=" + no + ", userNo=" + userNo + ", bookNo=" + bookNo + ", quantity=" + quantity + "]";
     }
