@@ -59,7 +59,7 @@ public class BookMallTest {
 		userDao.insert(mockUserVo02);
 
 		// 카테고리 등록(3개)
-		categoryDao.insert(mockCategoryVo01);
+		categoryDao.insert(mockCategoryVo01);	
 		categoryDao.insert(mockCategoryVo02);
 		categoryDao.insert(mockCategoryVo03);
 
@@ -68,14 +68,15 @@ public class BookMallTest {
 		bookDao.insert(mockBookVo01);
 		mockBookVo02.setCategoryNo(mockCategoryVo02.getNo());
 		bookDao.insert(mockBookVo02);
-		mockBookVo03.setCategoryNo(mockCategoryVo03.getNo());
+		mockBookVo03.setCategoryNo(mockCategoryVo03.getNo());		
 		bookDao.insert(mockBookVo03);
 
 		// 카트 담기(2개)
 		mockCartVo01.setUserNo(mockUserVo01.getNo());
 		mockCartVo01.setBookNo(mockBookVo01.getNo());
-		mockCartVo01.setQuantity(1);
+		mockCartVo01.setQuantity(1);		
 		cartDao.insert(mockCartVo01);
+
 
 		mockCartVo02.setUserNo(mockUserVo01.getNo());
 		mockCartVo02.setBookNo(mockBookVo02.getNo());

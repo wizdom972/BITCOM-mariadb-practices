@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,9 @@ public class OrderDao {
 		boolean result = false;
 
 		try (Connection conn = getConnection();
-				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO orders VALUES (NULL, ?, ?, ?, ?, ?)");) {
+				PreparedStatement pstmt = conn.prepareStatement(
+						"INSERT INTO orders(user_no, number, payment, shipping, status) VALUES (?, ?, ?, ?, ?)",
+						Statement.RETURN_GENERATED_KEYS);) {
 
 			pstmt.setLong(1, vo.getUserNo());
 			pstmt.setString(2, vo.getNumber());
@@ -39,6 +42,12 @@ public class OrderDao {
 			pstmt.setString(4, vo.getShipping());
 			pstmt.setString(5, vo.getStatus());
 			result = pstmt.executeUpdate() == 1;
+
+			try (ResultSet rs = pstmt.getGeneratedKeys()) {
+				if (rs.next()) {
+					vo.setNo(rs.getLong(1)); // 생성된 no를 VO에 설정
+				}
+			}
 
 		} catch (SQLException e) {
 			System.out.println("Error: " + e);
@@ -122,7 +131,7 @@ public class OrderDao {
 	public boolean deleteBooksByNo(Long orderNo) {
 		boolean result = false;
 		try (Connection conn = getConnection();
-				PreparedStatement pstmt = conn.prepareStatement("DELETE FROM order_book WHERE order_no = ?")) {
+				PreparedStatement pstmt = conn.prepareStatement("DELETE FROM order_book WHERE orders_no = ?")) {
 
 			pstmt.setLong(1, orderNo);
 			result = pstmt.executeUpdate() > 0;
@@ -135,9 +144,11 @@ public class OrderDao {
 
 	public boolean insertBook(OrderBookVo vo) {
 		boolean result = false;
-		
+
 		try (Connection conn = getConnection();
-				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO order_book VALUES (NULL, ?, ?, ?, ?)");) {
+				PreparedStatement pstmt = conn.prepareStatement(
+						"INSERT INTO order_book(orders_no, book_no, quantity, price) VALUES (?, ?, ?, ?)",
+						Statement.RETURN_GENERATED_KEYS);) {
 
 			pstmt.setLong(1, vo.getOrderNo());
 			pstmt.setLong(2, vo.getBookNo());
@@ -145,34 +156,39 @@ public class OrderDao {
 			pstmt.setInt(4, vo.getPrice());
 			result = pstmt.executeUpdate() == 1;
 
+			try (ResultSet rs = pstmt.getGeneratedKeys()) {
+				if (rs.next()) {
+					vo.setNo(rs.getLong(1)); // 생성된 no를 VO에 설정
+				}
+			}
+
 		} catch (SQLException e) {
 			System.out.println("Error: " + e);
 		}
-		
+
 		return result;
 	}
 
 	public List<OrderBookVo> findBooksByNoAndUserNo(Long orderNo, Long userNo) {
 		List<OrderBookVo> result = new ArrayList<>();
-		
+
 		try (Connection conn = getConnection();
 				PreparedStatement pstmt = conn
-						.prepareStatement("SELECT ob.order_no, ob.book_no, ob.quantity, ob.price, b.title "
-				                   + "FROM order_book ob "
-				                   + "JOIN book b ON ob.book_no = b.no "
-				                   + "WHERE ob.order_no = ? AND b.user_no = ?");) {
+						.prepareStatement("select book_no, orders_no, quantity, o.price, title" +
+			                    " from order_book o join book b" +
+			                    " on o.book_no = b.no" +
+			                    " where orders_no = ?");) {
 
 			pstmt.setLong(1, orderNo);
-			pstmt.setLong(2, userNo);
-			
+
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
 					OrderBookVo vo = new OrderBookVo();
-					vo.setOrderNo(rs.getLong(1));
-					vo.setBookNo(rs.getLong(2));
-					vo.setQuantity(rs.getInt(3));
-					vo.setPrice(rs.getInt(4));
-					vo.setBookTitle(rs.getString(5));
+	                vo.setBookNo(rs.getLong(1));
+	                vo.setOrderNo(rs.getLong(2));
+	                vo.setQuantity(rs.getInt(3));
+	                vo.setPrice(rs.getInt(4));
+	                vo.setBookTitle(rs.getString(5));
 					result.add(vo);
 				}
 			}
@@ -180,18 +196,18 @@ public class OrderDao {
 		} catch (SQLException e) {
 			System.out.println("Error: " + e);
 		}
-		
+
 		return result;
 	}
 
 	public String getBookTitle(Long bookNo) {
 		String title = null;
-		
+
 		try (Connection conn = getConnection();
 				PreparedStatement pstmt = conn.prepareStatement("SELECT title FROM book WHERE no = ?")) {
 
 			pstmt.setLong(1, bookNo);
-			
+
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
 					title = rs.getString(1);
@@ -201,7 +217,7 @@ public class OrderDao {
 		} catch (SQLException e) {
 			System.out.println("Error: " + e);
 		}
-		
+
 		return title;
 	}
 }
